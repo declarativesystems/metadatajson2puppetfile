@@ -9,11 +9,11 @@ module Metadatajson2puppetfile
         puts "# dependences for #{data['name']}"
         data["dependencies"].each { |pair|
           if pair["version_requirement"] =~ /^\d+\.\d+\.\d+$/
-            version_string = pair["version_requirement"]
+            version_string = "'#{pair['version_requirement']}'"
           else
             version_string = ":latest"
           end
-          dep_string = "mod '#{pair['name']}', '#{version_string}'"
+          dep_string = "mod '#{pair['name']}', #{version_string}"
           puts dep_string
         }
       rescue JSON::ParserError
